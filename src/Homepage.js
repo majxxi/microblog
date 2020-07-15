@@ -17,14 +17,16 @@ function Homepage() {
   return (
     <div>
       <h1>WELCOME</h1>
-      <Card>
+     
         {postsArr.map(postPair =>
+         <Card>
           <CardBody>
             <CardTitle><Link to={`/${postPair[0]}`}>{postPair[1].title}</Link></CardTitle>
             <CardSubtitle>{postPair[1].description}</CardSubtitle>
           </CardBody>
+          </Card>
         )}
-      </Card>
+      
     </div>
   )
 }
