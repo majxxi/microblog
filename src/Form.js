@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Formik, Field, Form } from "formik";
+
 import * as Yup from "yup";
 
 function PostForm( {addPost} ){
@@ -25,19 +26,19 @@ function PostForm( {addPost} ){
           <Form onSubmit={handleSubmit}>
             <div>
               <Field name="title"
-                    type="input"
+                    as="input"
                     placeholder="title"
               />
             </div>
             <div>
               <Field name="description"
-                    type="input"
+                    as="input"
                     placeholder="description"
               />
             </div>
             <div>
               <Field name="body"
-                    type="input"
+                    as="textarea"
                     placeholder="body"
               />
             </div>
