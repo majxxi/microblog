@@ -4,13 +4,20 @@ import PostView from './PostView';
 import CommentView from './CommentView';
 import CommentForm from './CommentForm';
 
-function Post( ){
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+function Post() {
+  const { postId } = useParams();
+  console.log('postId in Post component...', postId);
+  const postsObj = useSelector(store => store.posts);
+  const thisPost = postsObj[postId];
   return (
     <div>
-      <PostForm />
-      <PostView />
+      <PostForm postId={postId} />
+      {/* <PostView />
       <CommentView />
-      <CommentForm />
+      <CommentForm /> */}
     </div>
   )
 

@@ -4,21 +4,27 @@ import {
   CardTitle, CardSubtitle
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-function Homepage(){
-  const titles = []; // title and descrition
+function Homepage() {
+  //obj of posts
+  const postsObj = useSelector(store => store.posts);
+  console.log(postsObj);
+  // arr of pairs: [[id1, postdata1],[id2, postdata2],...]
+  const postsArr = Object.entries(postsObj); 
+  console.log(postsArr);
 
-  return(
+  return (
     <div>
-    <h1>WELCOME</h1>
-    <Card>
-      {titles.map(card =>
-      <CardBody>
-        <CardTitle><Link to={`/${card.postId}`}>{card.title}</Link></CardTitle>
-        <CardSubtitle>{card.description}</CardSubtitle>
-      </CardBody>
-      )}
-    </Card>
+      <h1>WELCOME</h1>
+      <Card>
+        {postsArr.map(postPair =>
+          <CardBody>
+            <CardTitle><Link to={`/${postPair[0]}`}>{postPair[1].title}</Link></CardTitle>
+            <CardSubtitle>{postPair[1].description}</CardSubtitle>
+          </CardBody>
+        )}
+      </Card>
     </div>
   )
 }

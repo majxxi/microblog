@@ -4,7 +4,14 @@ import { Formik, Field, Form } from "formik";
 
 import * as Yup from "yup";
 
-function PostForm( {addPost} ){
+import { useDispatch } from 'react-redux';
+import {addPost, updatePost} from './actions';
+import {v4 as uuidv4} from 'uuid';
+
+function PostForm({postId}){
+  const dispatch = useDispatch();
+  const addPostHelper = postData => dispatch(addPost(uuidv4(), postData));
+  const updatePostHelper = postData => dispatch(updatePost(postId, postData));
   const history = useHistory();
 
 
@@ -19,7 +26,7 @@ function PostForm( {addPost} ){
       <Formik initialValues={{ title:'', description:'', body:'' }}
               validationSchema={validationSchema}
               onSubmit={(data) => {
-                addPost(data);
+                postId ? updatePostHelper(data) : addPostHelper(data);
                 history.push('/');
       }}>
         {({ values, handleSubmit }) => (
