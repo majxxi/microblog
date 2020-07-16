@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Formik, Field, Form } from "formik";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import * as Yup from "yup";
 
@@ -31,19 +32,19 @@ function PostForm({postId}){
       }}>
         {({ values, handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
-            <div>
+            <div className="col-xs-4 mb-2">
               <Field name="title"
                     as="input"
                     placeholder="title"
               />
             </div>
-            <div>
+            <div className="col-xs-4 mb-2">
               <Field name="description"
                     as="input"
                     placeholder="description"
               />
             </div>
-            <div>
+            <div className="col-xs-4 mb-2">
               <Field name="body"
                     as="textarea"
                     placeholder="body"
