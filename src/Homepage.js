@@ -9,10 +9,8 @@ import { useSelector } from 'react-redux';
 function Homepage() {
   //obj of posts
   const postsObj = useSelector(store => store.posts);
-  console.log(postsObj);
   // arr of pairs: [[id1, postdata1],[id2, postdata2],...]
   const postsArr = Object.entries(postsObj); 
-  console.log(postsArr);
 
   return (
     <div>

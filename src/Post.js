@@ -33,8 +33,8 @@ function Post() {
           </div>
           <PostView thisPost={thisPost} />
           <hr />
-          <CommentView />
-          <CommentForm />
+          <CommentView postId={postId}/>
+          <CommentForm postId={postId}/>
         </>
 
       }
