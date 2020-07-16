@@ -1,11 +1,11 @@
 import React from 'react';
 
-function PostView( { thisPost, postId }) {
+function PostView( { post }) {
   return (
     <div>
-      <h1>{thisPost.title}</h1>
-      <h3>{thisPost.description}</h3>
-      <p>{thisPost.body}</p>
+      <h1>{post.title}</h1>
+      <h3>{post.description}</h3>
+      <p>{post.body}</p>
     </div>
   )
 }

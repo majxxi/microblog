@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PostForm from './Form';
 import PostView from './PostView';
 import CommentView from './CommentView';
@@ -8,38 +8,55 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { deletePost } from './actions';
 
+import { getPostFromAPI, deletePostFromAPI } from './actions';
+
 function Post() {
   const [isEditing, setIsEditing] = useState(false);
 
   const { postId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+
   const deletePostHelper = postId => {
-    dispatch(deletePost(postId));
+    dispatch(deletePostFromAPI(postId));
     history.push('/');
   }
 
-  const postsObj = useSelector(store => store.posts);
-  const thisPost = postsObj[postId];
+  const posts = useSelector(store => store.posts);
+  let post = posts[postId];
+  
+  useEffect(function getPostWhenMounted(){
+    async function getPost() {
+      dispatch(getPostFromAPI(postId))
+    }
+    getPost();
+  }, [dispatch, postId]);
+  // useEffect(() => {
+  //   dispatch(getTitleFromAPI(postId)) 
+  // }, [dispatch, postId]);
 
-  return (
-    <div>
-      {isEditing ? <PostForm postId={postId} />
-        :
-        <>
-          <div>
-            <button onClick={() => { setIsEditing(true) }}>Edit post</button>
-            <button onClick={() => deletePostHelper(postId)}>Remove post</button>
-          </div>
-          <PostView thisPost={thisPost} />
-          <hr />
-          <CommentView postId={postId}/>
-          <CommentForm postId={postId}/>
-        </>
+  if(post){
+    return (
+      <div>
+        {isEditing ? <PostForm postId={postId} />
+          :
+          <>
+            <div>
+              <button onClick={() => { setIsEditing(true) }}>Edit post</button>
+              <button onClick={() => deletePostHelper(postId)}>Remove post</button>
+            </div>
+            <PostView post={post} />
+            <hr />
+            <CommentView postId={postId}/>
+            <CommentForm postId={postId}/>
+          </>
 
-      }
-    </div>
-  )
+        }
+      </div>
+    )
+  } else {
+    return null; 
+  }
 
 }
 

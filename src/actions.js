@@ -1,14 +1,17 @@
 import {
   ADD_POST, DELETE_POST, UPDATE_POST,
-  ADD_COMMENT, DELETE_COMMENT
+  ADD_COMMENT, DELETE_COMMENT, GET_TITLES,
+  GET_POST
 } from './actionTypes';
+
+import axios from 'axios';
 
 //post will be obj with: title, description & body keys
 //we are expecting postId to be a generated uuid
-export function addPost(postId, postData) {
+export function addPost(postData) {
   return {
     type: ADD_POST,
-    postId,
+    // postId,
     postData
   }
 }
@@ -38,5 +41,50 @@ export function deleteComment(postId, commentId) {
     type: DELETE_COMMENT,
     postId,
     commentId
+  }
+}
+
+// APIs
+
+export function getTitlesFromAPI() {
+  return async function(dispatch) {
+    let response = await axios.get('http://localhost:5000/api/posts');
+    dispatch(getTitles(response.data));
+  };
+}
+
+function getTitles(titles) {
+  return { type: GET_TITLES, titles };
+}
+
+export function getPostFromAPI(id){
+  return async function(dispatch) {
+    let response = await axios.get(`http://localhost:5000/api/posts/${id}`);
+    dispatch(getPost(response.data));
+  };
+}
+
+function getPost(post) {
+  return { type: GET_POST, post}
+}
+
+export function addPostToAPI(data){
+  return async function(dispatch) {
+    let response = await axios.post(`http://localhost:5000/api/posts`, data);
+    dispatch(addPost(response.data));
+  }
+}
+
+export function editPostToAPI(id, data){
+  return async function(dispatch) {
+    let response = await axios.put(`http://localhost:5000/api/posts/${id}`, data);
+    dispatch(updatePost(response.data));
+  }
+}
+
+export function deletePostFromAPI(id){
+  return async function(dispatch) {
+    let response = await axios.delete(`http://localhost:5000/api/posts/${id}`);
+    dispatch(deletePost(response.data));
   }
 }

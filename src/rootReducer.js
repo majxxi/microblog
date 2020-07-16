@@ -1,20 +1,22 @@
 import {
   ADD_POST, DELETE_POST, UPDATE_POST,
-  ADD_COMMENT, DELETE_COMMENT
+  ADD_COMMENT, DELETE_COMMENT, GET_TITLES, GET_POST
 } from './actionTypes';
 
-const INITIAL_STATE = { posts: {} };
+const INITIAL_STATE = { posts: {}, titles: [] };
 
 function rootReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_POST:
-      return { ...state, posts: { ...state.posts, [action.postId]: { ...action.postData, comments: [] } } };
+      return { ...state, posts: { ...state.posts, [action.postData.id]: { ...action.postData, comments: [] } } };
+
     case DELETE_POST:
       {
         ///alt copy: {...state.posts}
         const postsCopy = Object.assign({}, state.posts);
         delete postsCopy[action.postId];
-        return { ...state, posts: postsCopy };
+        const titlesCopy = state.titles.filter(t => t.id !== action.postId )
+        return { ...state, posts: postsCopy, titles: titlesCopy };
       }
     case UPDATE_POST:
       {
@@ -41,6 +43,17 @@ function rootReducer(state = INITIAL_STATE, action) {
         thisPost.comments = newComments;
         postsCopy[action.postId] = thisPost;
         return { ...state, posts: postsCopy };
+      }
+
+    case GET_TITLES:
+      {
+        const titlesCopy = [...action.titles];
+        return {...state, titles: titlesCopy };
+      }
+
+    case GET_POST:
+      {
+        return {...state, posts: {...state.posts, [action.post.id]: action.post}}
       }
 
     default:

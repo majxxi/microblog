@@ -4,3 +4,8 @@ export const UPDATE_POST = 'UPDATE_POST';
 
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+
+//APIs
+
+export const GET_TITLES = 'GET_TITLES';
+export const GET_POST = 'GET_POST';

@@ -1,29 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Card, CardBody,
   CardTitle, CardSubtitle
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getTitlesFromAPI } from './actions';
 
 function Homepage() {
   //obj of posts
-  const postsObj = useSelector(store => store.posts);
-  // arr of pairs: [[id1, postdata1],[id2, postdata2],...]
-  const postsArr = Object.entries(postsObj); 
+  // const postsObj = useSelector(store => store.posts);
+  // // arr of pairs: [[id1, postdata1],[id2, postdata2],...]
+  // const postsArr = Object.entries(postsObj); 
+
+  const titles = useSelector(store => store.titles);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTitlesFromAPI())
+  }, [dispatch]);
 
   return (
     <div>
       <h1>WELCOME</h1>
+
+      {titles.map(postPair =>
+         <Card>
+          <CardBody>
+            <CardTitle><Link to={`/${postPair.id}`}>{postPair.title}</Link></CardTitle>
+            <CardSubtitle>{postPair.description}</CardSubtitle>
+          </CardBody>
+          </Card>
+        )}
      
-        {postsArr.map(postPair =>
+        {/* {postsArr.map(postPair =>
          <Card>
           <CardBody>
             <CardTitle><Link to={`/${postPair[0]}`}>{postPair[1].title}</Link></CardTitle>
             <CardSubtitle>{postPair[1].description}</CardSubtitle>
           </CardBody>
           </Card>
-        )}
+        )} */}
       
     </div>
   )

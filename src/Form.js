@@ -2,19 +2,17 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Formik, Field, Form } from "formik";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { addPostToAPI, editPostToAPI } from './actions'
 
 import * as Yup from "yup";
 
 import { useDispatch } from 'react-redux';
-import {addPost, updatePost} from './actions';
-import {v4 as uuidv4} from 'uuid';
+import { updatePost} from './actions';
 
 function PostForm({postId}){
   const dispatch = useDispatch();
-  const addPostHelper = postData => dispatch(addPost(uuidv4(), postData));
-  const updatePostHelper = postData => dispatch(updatePost(postId, postData));
+  // const updatePostHelper = postData => dispatch(updatePost(postId, postData));
   const history = useHistory();
-
 
   const validationSchema = Yup.object({
     title : Yup.string().required(),
@@ -27,7 +25,7 @@ function PostForm({postId}){
       <Formik initialValues={{ title:'', description:'', body:'' }}
               validationSchema={validationSchema}
               onSubmit={(data) => {
-                postId ? updatePostHelper(data) : addPostHelper(data);
+                postId ? dispatch(editPostToAPI(postId, data)) : dispatch(addPostToAPI(data));
                 history.push('/');
       }}>
         {({ values, handleSubmit }) => (
