@@ -23,7 +23,6 @@ function Post() {
 
   const posts = useSelector(store => store.posts);
   let post = posts[postId];
-  console.log(post);
 
   useEffect(function getPostWhenMounted() {
     async function getPost() {
@@ -47,12 +46,14 @@ function Post() {
           <>
             <PostView post={post} />
             <div>
-              <button onClick={() => { setIsEditing(true) }}>Edit post</button>
-              <button onClick={() => deletePostHelper(postId)}>Remove post</button>
+              <i className="fas fa-eraser text-info mr-2" style={{fontSize: 25 + 'px'}} 
+                onClick={() => { setIsEditing(true) }}></i>
+              <i className="fas fa-trash text-danger" style={{fontSize: 25 + 'px'}} 
+                onClick={() => deletePostHelper(postId)}></i>
               <p>Net Votes: {post.votes}</p>
-              <i className="fas fa-thumbs-up mr-2 text-success"
+              <i className="fas fa-thumbs-up mr-2 text-success" style={{fontSize: 25 + 'px'}} 
                 onClick={() => voteOnPostHelper(post.id, 'up')}></i>
-              <i className="fas fa-thumbs-down text-danger"
+              <i className="fas fa-thumbs-down text-danger" style={{fontSize: 25 + 'px'}} 
                 onClick={() => voteOnPostHelper(post.id, 'down')}></i>
             </div>
             <hr />

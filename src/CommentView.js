@@ -9,13 +9,15 @@ function CommentView({postId}) {
     dispatch(deleteComment(postId, commentId));
   }
 
+  
   return (
     <div>
       <h5>Comments</h5>
       {comments && comments.map(commentObj =>
         <div key={commentObj.id}>
-          <button onClick={() => deleteCommentHelper(postId, commentObj.id)}>X</button>
-          <p>{commentObj.text}</p>
+          <p>{commentObj.text} <i className="ml-3 fas fa-trash text-danger" style={{fontSize: 20 + 'px'}} 
+            onClick={() => deleteCommentHelper(postId, commentObj.id)}></i></p>
+          
         </div>
       )}
     </div>

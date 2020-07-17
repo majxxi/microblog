@@ -9,8 +9,10 @@ return (
   <div>
     <main>
       <Switch>
-        {/* <NavBar /> */}
         <Route exact path='/'>
+          <Homepage />
+        </Route>
+        <Route exact path='/page/:page'>
           <Homepage />
         </Route>
         <Route exact path='/new'>
