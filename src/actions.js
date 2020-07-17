@@ -1,5 +1,5 @@
 import {
-  ADD_POST, DELETE_POST, UPDATE_POST,
+  ADD_POST, DELETE_POST, UPDATE_POST, VOTE_ON_POST,
   ADD_COMMENT, DELETE_COMMENT, GET_TITLES,
   GET_POST
 } from './actionTypes';
@@ -28,6 +28,23 @@ export function updatePost(postId, postData) {
     postData
   }
 }
+
+// voting
+export function voteOnPost(postId, newVotesCount) {
+  return {
+    type: VOTE_ON_POST,
+    postId,
+    newVotesCount
+  }
+}
+export function voteOnPostFromAPI(postId, vote) {
+  return async function(dispatch) {
+    let response = await axios.post(`http://localhost:5000/api/posts/${postId}/vote/${vote}`);
+    dispatch(voteOnPost(postId, response.data.votes));
+  }
+}
+//
+
 // takes postId and add comment to that post
 export function addComment(postId, commentObj) {
   return {

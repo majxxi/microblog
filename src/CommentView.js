@@ -12,7 +12,7 @@ function CommentView({postId}) {
   return (
     <div>
       <h5>Comments</h5>
-      {comments.map(commentObj =>
+      {comments && comments.map(commentObj =>
         <div key={commentObj.id}>
           <button onClick={() => deleteCommentHelper(postId, commentObj.id)}>X</button>
           <p>{commentObj.text}</p>

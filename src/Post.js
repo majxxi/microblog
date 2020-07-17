@@ -7,7 +7,7 @@ import CommentForm from './CommentForm';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getPostFromAPI, deletePostFromAPI } from './actions';
+import { getPostFromAPI, deletePostFromAPI, voteOnPostFromAPI } from './actions';
 
 function Post() {
   const [isEditing, setIsEditing] = useState(false);
@@ -23,8 +23,9 @@ function Post() {
 
   const posts = useSelector(store => store.posts);
   let post = posts[postId];
-  
-  useEffect(function getPostWhenMounted(){
+  console.log(post);
+
+  useEffect(function getPostWhenMounted() {
     async function getPost() {
       dispatch(getPostFromAPI(postId))
     }
@@ -34,7 +35,11 @@ function Post() {
   //   dispatch(getTitleFromAPI(postId)) 
   // }, [dispatch, postId]);
 
-  if(post){
+  const voteOnPostHelper = (postId, vote) => {
+    dispatch(voteOnPostFromAPI(postId, vote));
+  }
+
+  if (post) {
     return (
       <div>
         {isEditing ? <PostForm postId={postId} />
@@ -44,17 +49,22 @@ function Post() {
             <div>
               <button onClick={() => { setIsEditing(true) }}>Edit post</button>
               <button onClick={() => deletePostHelper(postId)}>Remove post</button>
+              <p>Net Votes: {post.votes}</p>
+              <i className="fas fa-thumbs-up mr-2 text-success"
+                onClick={() => voteOnPostHelper(post.id, 'up')}></i>
+              <i className="fas fa-thumbs-down text-danger"
+                onClick={() => voteOnPostHelper(post.id, 'down')}></i>
             </div>
             <hr />
-            <CommentView postId={postId}/>
-            <CommentForm postId={postId}/>
+            <CommentView postId={postId} />
+            <CommentForm postId={postId} />
           </>
 
         }
       </div>
     )
   } else {
-    return null; 
+    return null;
   }
 
 }
