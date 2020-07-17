@@ -6,7 +6,6 @@ import CommentForm from './CommentForm';
 
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { deletePost } from './actions';
 
 import { getPostFromAPI, deletePostFromAPI } from './actions';
 
@@ -41,11 +40,11 @@ function Post() {
         {isEditing ? <PostForm postId={postId} />
           :
           <>
+            <PostView post={post} />
             <div>
               <button onClick={() => { setIsEditing(true) }}>Edit post</button>
               <button onClick={() => deletePostHelper(postId)}>Remove post</button>
             </div>
-            <PostView post={post} />
             <hr />
             <CommentView postId={postId}/>
             <CommentForm postId={postId}/>

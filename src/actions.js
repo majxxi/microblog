@@ -84,7 +84,21 @@ export function editPostToAPI(id, data){
 
 export function deletePostFromAPI(id){
   return async function(dispatch) {
-    let response = await axios.delete(`http://localhost:5000/api/posts/${id}`);
-    dispatch(deletePost(response.data));
+    await axios.delete(`http://localhost:5000/api/posts/${id}`);
+    dispatch(deletePost(id));
+  }
+}
+
+export function addCommentToAPI(postId, data) {
+  return async function(dispatch) {
+    let response = await axios.post(`http://localhost:5000/api/posts/${postId}/comments`, data);
+    dispatch(addComment(postId, response.data));
+  }
+}
+
+export function deleteCommentFromAPI(postId, commentId) {
+  return async function(dispatch) {
+    await axios.delete(`http://localhost:5000/api/posts/${postId}/comments/${commentId}`);
+    dispatch(deleteComment(postId, commentId));
   }
 }

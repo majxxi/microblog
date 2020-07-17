@@ -3,7 +3,7 @@ import {
   Card, CardBody,
   CardTitle, CardSubtitle
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTitlesFromAPI } from './actions';
 
@@ -15,17 +15,19 @@ function Homepage() {
 
   const titles = useSelector(store => store.titles);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(getTitlesFromAPI())
-  }, [dispatch]);
+    dispatch(getTitlesFromAPI());
+    history.push('/');
+  }, [dispatch, history]);
 
   return (
     <div>
       <h1>WELCOME</h1>
 
       {titles.map(postPair =>
-         <Card>
+         <Card key={postPair.id}>
           <CardBody>
             <CardTitle><Link to={`/${postPair.id}`}>{postPair.title}</Link></CardTitle>
             <CardSubtitle>{postPair.description}</CardSubtitle>

@@ -7,7 +7,6 @@ import { addPostToAPI, editPostToAPI } from './actions'
 import * as Yup from "yup";
 
 import { useDispatch } from 'react-redux';
-import { updatePost} from './actions';
 
 function PostForm({postId}){
   const dispatch = useDispatch();

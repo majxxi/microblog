@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addComment } from './actions';
-import { v4 as uuidv4 } from 'uuid';
+import { addCommentToAPI } from './actions';
 
 function CommentForm({ postId }) {
   const [formData, setFormData] = useState(''); 
 
   const dispatch = useDispatch();
-  const addCommentHelper = comment => dispatch(addComment(postId, { comment, id: uuidv4() }));
+  const addCommentHelper = comment => dispatch(addCommentToAPI(postId, {text: comment}));
 
   const handleChange = evt => {
     setFormData(evt.target.value);
@@ -21,7 +20,7 @@ function CommentForm({ postId }) {
   return (
     <div>
       <form onSubmit={handleSubmit} onChange={handleChange}>
-        <input type="text" />
+        <input type="text" name="text" />
         <button type="submit">POST</button>
       </form>
     </div>
