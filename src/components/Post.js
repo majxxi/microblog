@@ -3,11 +3,12 @@ import PostForm from './Form';
 import PostView from './PostView';
 import CommentView from './CommentView';
 import CommentForm from './CommentForm';
+import "./Post.css";
 
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getPostFromAPI, deletePostFromAPI, voteOnPostFromAPI } from './actions';
+import { getPostFromAPI, deletePostFromAPI, voteOnPostFromAPI } from '../actions/actions';
 
 function Post() {
   const [isEditing, setIsEditing] = useState(false);

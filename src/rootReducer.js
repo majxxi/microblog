@@ -1,7 +1,7 @@
 import {
   ADD_POST, DELETE_POST, UPDATE_POST,
   ADD_COMMENT, DELETE_COMMENT, GET_TITLES, GET_POST, VOTE_ON_POST
-} from './actionTypes';
+} from './actions/actionTypes';
 
 const INITIAL_STATE = { posts: {}, titles: [] };
 

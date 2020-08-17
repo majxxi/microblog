@@ -3,9 +3,9 @@ import {
   Card, CardBody,
   CardTitle, CardSubtitle, CardFooter
 } from 'reactstrap';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTitlesFromAPI, voteOnPostFromAPI } from './actions';
+import { getTitlesFromAPI, voteOnPostFromAPI } from '../actions/actions';
 import Pagination from './Pagination';
 
 function Homepage() {
@@ -13,8 +13,6 @@ function Homepage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { page } = useParams();
-  console.log(page);
 
   const [postsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,10 +46,10 @@ function Homepage() {
       <h1>WELCOME</h1>
 
       {currentTitles.sort((a,b) => b.votes - a.votes).map(postPair =>
-        <Card key={postPair.id} style={{width: 21.5 + 'em', margin: 0}} className='mx-auto mb-2'>
+        <Card key={postPair.id} style={{width: 60 + 'em', margin: 0}} className='mx-auto mb-2'>
           <CardBody>
             <CardTitle><Link to={`/${postPair.id}`}>{postPair.title}</Link></CardTitle>
-            <CardSubtitle>{postPair.description}</CardSubtitle>
+            <CardSubtitle className="mb-4">{postPair.description}</CardSubtitle>
             <CardFooter>
               <p>Net Votes: {postPair.votes}
                 <i className="ml-3 fas fa-thumbs-up mr-2 text-success"

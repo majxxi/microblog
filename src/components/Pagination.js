@@ -10,7 +10,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
 
   return (
     <nav>
-      <ul className='pagination'>
+      <ul className='pagination mx-auto'>
         {pageNumbers.map(number => (
           <li key={number} className='page-item'>
             <Link onClick={() => paginate(number)} to={`/page/${number}`} className='page-link'>

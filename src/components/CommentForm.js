@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addCommentToAPI } from './actions';
+import { addCommentToAPI } from '../actions/actions';
 
 function CommentForm({ postId }) {
   const [formData, setFormData] = useState(''); 

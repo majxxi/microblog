@@ -2,7 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Formik, Field, Form } from "formik";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { addPostToAPI, editPostToAPI } from './actions'
+import { addPostToAPI, editPostToAPI } from '../actions/actions';
+import "./NewPost.css";
 
 import * as Yup from "yup";
 
@@ -20,7 +21,7 @@ function PostForm({postId}){
   });
 
   return (
-    <div>
+    <div className="col-md-6 offset-md-3 mt-4">
       <Formik initialValues={{ title:'', description:'', body:'' }}
               validationSchema={validationSchema}
               onSubmit={(data) => {
@@ -33,18 +34,21 @@ function PostForm({postId}){
               <Field name="title"
                     as="input"
                     placeholder="title"
+                    className="form-control pb-5"
               />
             </div>
             <div className="col-xs-4 mb-2">
               <Field name="description"
                     as="input"
                     placeholder="description"
+                    className="form-control pb-5"
               />
             </div>
             <div className="col-xs-4 mb-2">
               <Field name="body"
                     as="textarea"
                     placeholder="body"
+                    className="form-control pb-5"
               />
             </div>
             <div>
